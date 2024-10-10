@@ -7,13 +7,25 @@ const getLatestData = async (req, res) => {
         const { coin } = req.body;
         if (coin === 'bitcoin') {
             const btc = await Btc.find().sort({ createdAt: -1 }).limit(1);
-            return res.json(btc);
+            return res.json({
+                price: btc[0].price,
+                "24hChange": btc[0]["24hChange"],
+                marketCap: btc[0].marketCap
+            });
         } else if (coin === 'ethereum') {
             const eth = await Eth.find().sort({ createdAt: -1 }).limit(1);
-            return res.json(eth);
+            return res.json({
+                price: eth[0].price,
+                "24hChange": eth[0]["24hChange"],
+                marketCap: eth[0].marketCap
+            });
         } else if (coin === 'matic') {
             const matic = await Matic.find().sort({ createdAt: -1 }).limit(1);
-            return res.json(matic);
+            return res.json({
+                price: matic[0].price,
+                "24hChange": matic[0]["24hChange"],
+                marketCap: matic[0].marketCap
+            });
         } else {
             return res.status(404).json({ error: 'Coin not found' });
         }
