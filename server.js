@@ -3,11 +3,15 @@ const dotenv = require('dotenv');
 const {connectDB} = require('./database/index');
 const coinRouter = require('./routes/coin.routes');
 const cors = require('cors');
+const scheduler = require('./scheduler/marketDataScheduler');
 dotenv.config(".env"); // Load environment variables
 const app = express(); // Initialize the express app
 connectDB(); // Connect to the database
 
 const PORT = process.env.PORT || 3000;
+
+// Initialize the scheduler
+scheduler();
 
 // Middlewares
 app.use(express.json());

@@ -6,14 +6,15 @@ const fetchData = require('../utils/fetchData');
 
 const fatchUpdateData = async () => {
     const session = await mongoose.startSession();
-    session.startTransaction();
     try {
         // Fetch the coin data
         const data = await fetchData();
         const btcData = data.bitcoin;
         const ethData = data.ethereum;
         const maticData = data['matic-network'];
-    
+        
+        // Start the transaction
+        session.startTransaction();
         // Update the BTC data
         await Btc.create([{
             price : btcData.usd,
@@ -32,11 +33,11 @@ const fatchUpdateData = async () => {
             "24hChange" : maticData.usd_24h_change,
             marketCap : maticData.usd_market_cap
         }], { session });
-        session.commitTransaction();
+        await session.commitTransaction();
         console.log('Data updated successfully');
     } catch (error) {
         console.log(`Error: ${error.message}`);
-        session.abortTransaction();
+        await session.abortTransaction();
     }
     finally {
         session.endSession();
