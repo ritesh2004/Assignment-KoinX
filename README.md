@@ -2,6 +2,9 @@
 
 This service provides latest and coin price deviation data for Bitcoin, Ethereum, and Matic cryptocurrencies.
 
+## API Base URL
+ `http://16.171.185.105:3000/api/v1`
+
 ## API Endpoints
 
 ### Get Latest Data
