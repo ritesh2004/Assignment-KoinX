@@ -2,7 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const {connectDB} = require('./database/index');
 dotenv.config(".env"); // Load environment variables
-
 const app = express(); // Initialize the express app
 connectDB(); // Connect to the database
 
